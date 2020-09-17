@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/first-adsaunders-caslash.iml" filepath="$PROJECT_DIR$/.idea/first-adsaunders-caslash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/first-adsaunders-caslash.iml" filepath="$PROJECT_DIR$/first-adsaunders-caslash.iml" />
     </modules>
   </component>
 </project>
