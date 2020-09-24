@@ -11,8 +11,17 @@ public class UITest {
         String homeBanner = ui.homeBanner();
         boolean result = (homeBanner.equals("---------------------------" +
                 "|  Orwellian News Service |" +
-                "|   Wikipedia Edit Parser |" +
+                "|  Wikipedia Edit Finder  |" +
                 "---------------------------"));
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void wikipediaPageSearchInputTest() {
+        UI ui = new UI();
+        String display = ui.wikipediaPageSearchInput();
+        boolean result = (display.equals("Please input the wikipedia "+
+                "page you would like to visit:"));
         Assertions.assertTrue(result);
     }
 
