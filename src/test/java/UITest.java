@@ -8,8 +8,8 @@ public class UITest {
     @Test
     public void HomeBannerTest() {
         UI ui = new UI();
-        String homeBanner = ui.homeBanner();
-        boolean result = (homeBanner.equals("---------------------------" +
+        String display = ui.homeBanner();
+        boolean result = (display.equals("---------------------------" +
                 "|  Orwellian News Service |" +
                 "|  Wikipedia Edit Finder  |" +
                 "---------------------------"));
@@ -23,6 +23,12 @@ public class UITest {
         boolean result = (display.equals("Please input the wikipedia "+
                 "page you would like to visit:"));
         Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void apiDataOutputOptions() {
+        UI ui = new UI();
+        String display = ("");
     }
 
 }
