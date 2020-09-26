@@ -5,8 +5,8 @@ public class WikipediaAPITest {
 
     @Test
     public void wikipediaFirstRevisionAuthorTest() {
-        WikipediaAPIParser wikipediaAPIParser = new WikipediaAPIParser();
-        String revisionAuthor = wikipediaAPIParser.getFirstRevisionAuthor();
+        RevisionParser revisionParser = new RevisionParser();
+        String revisionAuthor = revisionParser.parse();
         boolean result = (revisionAuthor.equals("String"));
         Assertions.assertTrue(result);
     }
