@@ -1,4 +1,4 @@
-import org.junit.Test;
+/*import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class WikipediaAPITest {
@@ -10,4 +10,4 @@ public class WikipediaAPITest {
         boolean result = (revisionAuthor.equals("String"));
         Assertions.assertTrue(result);
     }
-}
+}*/

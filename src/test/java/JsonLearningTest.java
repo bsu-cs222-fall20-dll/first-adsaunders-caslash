@@ -24,5 +24,6 @@ public class JsonLearningTest {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
         }
+        Assert.assertEquals(4, array.size());
     }
 }

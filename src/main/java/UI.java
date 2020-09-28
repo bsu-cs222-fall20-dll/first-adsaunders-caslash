@@ -13,4 +13,8 @@ public class UI {
         return ("Please input the wikipedia " +
                 "page you would like to visit:");
     }
+
+    public void interaction(){
+
+    }
 }
