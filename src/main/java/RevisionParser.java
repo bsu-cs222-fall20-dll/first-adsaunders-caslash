@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RevisionParser {
     @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
-    public void revisionParserArray(InputStream inputStream) throws ParseException {
+    public ArrayList revisionParserArray(InputStream inputStream) throws ParseException {
         ArrayList<Author> listOfAuthors = new ArrayList<>();
         Reader reader = new InputStreamReader(inputStream);
         JsonParser parser = new JsonParser();
@@ -20,7 +20,11 @@ public class RevisionParser {
 
         for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            metaWikiData = entryObject.getAsJsonArray("revisions");
+            if(entryObject.getAsJsonObject().has("missing")){
+                System.out.println("This page does not exist please try again");
+            }else{
+                metaWikiData = entryObject.getAsJsonArray("revisions");
+            }
         }
 
         if(metaWikiData != null){
@@ -30,13 +34,14 @@ public class RevisionParser {
                 Author newAuthor = new Author(user, timestamp);
                 listOfAuthors.add(newAuthor);
             }
-        }else{
-            System.out.println("This page does not exist please try again");
         }
 
-        for(int i=0; i < listOfAuthors.size(); i++){
+        /*for(int i=0; i < listOfAuthors.size(); i++){
             System.out.printf("%-30s %30s %n", listOfAuthors.get(i).getUsername(), listOfAuthors.get(i).getTimestamp());
-        }
+        }*/
+
+        return listOfAuthors;
+
     }
 
     @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API

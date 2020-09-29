@@ -9,7 +9,7 @@ public class UI {
     }
 
     public String wikipediaPageSearchInput() {
-        return ("Please input the wikipedia " +
+        return ("Please input the Wikipedia " +
                 "page you would like to visit:");
     }
 
