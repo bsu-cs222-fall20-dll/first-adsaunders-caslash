@@ -14,8 +14,8 @@ public class WikipediaConnector {
     }
 
     public URL convertToUrl(String title) throws Exception {
-       String convertedTitle = title.replaceAll(" ", "%20");
-       URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + convertedTitle + "&rvprop=timestamp|user&rvlimit=20&redirects");
-       return url;
+        String convertedTitle = title.replaceAll(" ", "%20");
+        URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + convertedTitle + "&rvprop=timestamp|user&rvlimit=20&redirects");
+        return url;
     }
 }

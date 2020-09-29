@@ -1,5 +1,3 @@
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Scanner;
 
 public class Controller {
@@ -17,13 +15,15 @@ public class Controller {
         String choice = read.nextLine();
 
         if(choice.equals("R")){
+            revis.outputRedirect(connector.getUsersandDates(connector.convertToUrl(title)));
             ui.nameDateHeader();
             revis.revisionParserArray(connector.getUsersandDates(connector.convertToUrl(title)));
         }else if(choice.equals("H")){
-             System.out.println(insert.sorter(revis.userParserArray(connector.getUsersandDates(connector.convertToUrl(title)))));
+            revis.outputRedirect(connector.getUsersandDates(connector.convertToUrl(title)));
+            ui.nameCountHeader();
+            insert.outNameCounter(insert.sortEditorsByNumberOfEdits(insert.sorter(revis.userParserArray(connector.getUsersandDates(connector.convertToUrl(title))))));
         }else if(choice.equals("E")){
             System.out.println("Goodbye!");
         }
-
     }
 }

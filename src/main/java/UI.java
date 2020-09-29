@@ -1,7 +1,6 @@
 import java.util.Scanner;
-public class UI {
-    Scanner input = new Scanner(System.in);
 
+public class UI {
     public String homeBanner() {
         return ("---------------------------" +
                 "|  Orwellian News Service |" +
@@ -19,7 +18,12 @@ public class UI {
         System.out.println("-------------------------------------------------------------------------");
     }
 
+    public void nameCountHeader(){
+        System.out.printf("%-30s %15s %n", "Username", "Edits Made");
+        System.out.println("-------------------------------------------------------------------------");
+    }
+
     public String askChoice(){
-        return("Enter R to see most recent editors, Enter H to see how many revisions each editor made, Enter E to exit");
+        return("Enter R to see most recent editors, Enter H to see how many revisions each of the top editors have made, Enter E to exit");
     }
 }
