@@ -16,11 +16,9 @@ public class Controller {
         if(choice.equals("R")){
             revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
             ui.nameDateHeader();
-            for(int i=0; i < revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title))).size(); i++){
-                System.out.println(revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title))).get(i).toString());
+            for(Author author : revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title)))){
+                System.out.printf("%-30s %30s %n", author.getUsername(), author.getTimestamp());
             }
-
-            revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title)));
         }else if(choice.equals("H")){
             revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
             ui.nameCountHeader();

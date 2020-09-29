@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RevisionParser {
     @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
-    public ArrayList revisionParserArray(InputStream inputStream) throws ParseException {
+    public ArrayList<Author> revisionParserArray(InputStream inputStream){
         ArrayList<Author> listOfAuthors = new ArrayList<>();
         Reader reader = new InputStreamReader(inputStream);
         JsonParser parser = new JsonParser();
@@ -35,10 +35,6 @@ public class RevisionParser {
                 listOfAuthors.add(newAuthor);
             }
         }
-
-        /*for(int i=0; i < listOfAuthors.size(); i++){
-            System.out.printf("%-30s %30s %n", listOfAuthors.get(i).getUsername(), listOfAuthors.get(i).getTimestamp());
-        }*/
 
         return listOfAuthors;
 
