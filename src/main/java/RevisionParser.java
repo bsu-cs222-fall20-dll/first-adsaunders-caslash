@@ -2,6 +2,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.junit.platform.commons.util.StringUtils;
 
 import javax.swing.text.EditorKit;
 import java.io.*;
@@ -12,15 +13,14 @@ import java.util.Date;
 import java.util.Map;
 
 public class RevisionParser {
-    public void revisionParserArray(String title) throws ParseException {
-       SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+    @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
+    public void revisionParserArray(InputStream inputStream) throws ParseException {
        ArrayList<String> userList = new ArrayList<>();
        ArrayList<Date> dateList = new ArrayList<>();
-
-       WikipediaConnector connection = new WikipediaConnector();
+       Reader reader = new InputStreamReader(inputStream);
 
        JsonParser parser = new JsonParser();
-       JsonElement rootElement = parser.parse(connection.getUsersandDates(title));
+       JsonElement rootElement = parser.parse(reader);
        JsonObject rootObject = rootElement.getAsJsonObject();
        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
        JsonArray metaWikiData = null;
@@ -30,24 +30,27 @@ public class RevisionParser {
            metaWikiData = entryObject.getAsJsonArray("revisions");
        }
 
-       for(int i=0; i < metaWikiData.size(); i++){
-           userList.add(metaWikiData.get(i).getAsJsonObject().get("user").getAsString());
-           dateList.add(timestampFormat.parse(metaWikiData.get(i).getAsJsonObject().get("timestamp").getAsString()));
+       ArrayList<Author> listOfAuthors = new ArrayList<>();
+
+       for(JsonElement author : metaWikiData){
+           String user = author.getAsJsonObject().get("user").getAsString();
+           String timestamp = author.getAsJsonObject().get("timestamp").getAsString();
+           Author newAuthor = new Author(user, timestamp);
+           listOfAuthors.add(newAuthor);
        }
 
-       for(int i=0; i < userList.size(); i++){
-           System.out.println("Username: " + userList.get(i) + " Date and Time: " + dateList.get(i));
+       for(int i=0; i < listOfAuthors.size(); i++){
+           System.out.printf("%-30s %30s %n", listOfAuthors.get(i).getUsername(), listOfAuthors.get(i).getTimestamp());
        }
     }
 
-    /*public ArrayList userParserArray() throws IOException {
-        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-        ArrayList<String> userList = new ArrayList<>();
-
-        WikipediaConnector connection = new WikipediaConnector();
+    @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
+    public ArrayList userParserArray(InputStream inputStream) throws IOException {
+        ArrayList<Author> listOfAuthors = new ArrayList<>();
+        Reader reader = new InputStreamReader(inputStream);
 
         JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(connection.getUsersandDates());
+        JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray metaWikiData = null;
@@ -57,10 +60,13 @@ public class RevisionParser {
             metaWikiData = entryObject.getAsJsonArray("revisions");
         }
 
-        for(int i=0; i < metaWikiData.size(); i++){
-            userList.add(metaWikiData.get(i).getAsJsonObject().get("user").getAsString());
+        for(JsonElement author : metaWikiData){
+            String user = author.getAsJsonObject().get("user").getAsString();
+            String timestamp = author.getAsJsonObject().get("timestamp").getAsString();
+            Author newAuthor = new Author(user, timestamp);
+            listOfAuthors.add(newAuthor);
         }
 
-        return userList;
-    }*/
+        return listOfAuthors;
+    }
 }

@@ -14,7 +14,12 @@ public class UI {
                 "page you would like to visit:");
     }
 
-    public void interaction(){
+    public void nameDateHeader(){
+        System.out.printf("%-30s %15s %n", "Username", "Date and Time");
+        System.out.println("-------------------------------------------------------------------------");
+    }
 
+    public String askChoice(){
+        return("Enter R to see most recent editors, Enter H to see how many revisions each editor made, Enter E to exit");
     }
 }
