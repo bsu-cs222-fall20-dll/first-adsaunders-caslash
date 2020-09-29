@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="WikipediaConnectorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-09-29T19:00:16" hostname="DESKTOP-1EPGKJO" time="0.679">
+  <properties/>
+  <testcase name="testWikipediaRedirects" classname="WikipediaConnectorTest" time="0.483"/>
+  <testcase name="testWikipediaPageDoesNotExist" classname="WikipediaConnectorTest" time="0.092"/>
+  <testcase name="testWikipediaConnects" classname="WikipediaConnectorTest" time="0.103"/>
+  <system-out><![CDATA[This page does not exist please try again
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

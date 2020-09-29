@@ -1,17 +1,19 @@
+import java.util.Map;
 import java.util.Scanner;
 
 public class Controller {
     public void userInput() throws Exception {
         UI ui = new UI();
-        RevisionParser revis = new RevisionParser();
-        WikipediaConnector connector = new WikipediaConnector();
-        InsertionSort insert = new InsertionSort();
+        AuthorSorter sort = new AuthorSorter();
         Scanner read = new Scanner(System.in);
+        WikipediaConnector connector = new WikipediaConnector();
         System.out.println(ui.homeBanner());
         System.out.println(ui.wikipediaPageSearchInput());
         String title = read.nextLine();
         System.out.println(ui.askChoice());
         String choice = read.nextLine();
+
+        RevisionParser revis = new RevisionParser();
 
         if(choice.equals("R")){
             revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
@@ -22,7 +24,12 @@ public class Controller {
         }else if(choice.equals("H")){
             revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
             ui.nameCountHeader();
-            insert.outNameCounter(insert.sortEditorsByNumberOfEdits(insert.sorter(revis.userParserArray(connector.connectToWikipedia(connector.convertToUrl(title))))));
+            Map nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title))))));
+
+            for(Object username : nameCounter.keySet()){
+                System.out.printf("%-30s %10s %n", username.toString(), nameCounter.get(username));
+            }
+
         }else if(choice.equals("E")){
             System.out.println("Goodbye!");
         }

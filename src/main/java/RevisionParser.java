@@ -7,8 +7,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
+@SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
 public class RevisionParser {
-    @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
+
     public ArrayList<Author> revisionParserArray(InputStream inputStream){
         ArrayList<Author> listOfAuthors = new ArrayList<>();
         Reader reader = new InputStreamReader(inputStream);
@@ -18,11 +19,11 @@ public class RevisionParser {
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray metaWikiData = null;
 
-        for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
+        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            if(entryObject.getAsJsonObject().has("missing")){
+            if (entryObject.getAsJsonObject().has("missing")) {
                 System.out.println("This page does not exist please try again");
-            }else{
+            } else {
                 metaWikiData = entryObject.getAsJsonArray("revisions");
             }
         }
@@ -35,46 +36,15 @@ public class RevisionParser {
                 listOfAuthors.add(newAuthor);
             }
         }
-
-        return listOfAuthors;
-
-    }
-
-    @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
-    public ArrayList userParserArray(InputStream inputStream){
-        ArrayList<Author> listOfAuthors = new ArrayList<>();
-        Reader reader = new InputStreamReader(inputStream);
-
-        JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(reader);
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-
-        JsonArray metaWikiData = null;
-
-        for (Map.Entry<String,JsonElement> entry : pages.entrySet()){
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            metaWikiData = entryObject.getAsJsonArray("revisions");
-        }
-
-        for(JsonElement author : metaWikiData){
-            String user = author.getAsJsonObject().get("user").getAsString();
-            String timestamp = author.getAsJsonObject().get("timestamp").getAsString();
-            Author newAuthor = new Author(user, timestamp);
-            listOfAuthors.add(newAuthor);
-        }
         return listOfAuthors;
     }
 
-    @SuppressWarnings("deprecation") //Gets rid of warnings for soon-to-be obsolete classes in the API
     public void outputRedirect(InputStream inputStream){
         Reader reader = new InputStreamReader(inputStream);
-
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject query = rootObject.getAsJsonObject("query");
-
         JsonArray fromToData = null;
 
         try{
@@ -87,7 +57,6 @@ public class RevisionParser {
                     System.out.println("You have been redirected from " + from + " to " + to);
                 }
             }
-
         }catch (NullPointerException e){
             System.out.println("You have not been redirected");
         }

@@ -8,32 +8,34 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.CharBuffer;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class WikipediaParserTest {
-    @Test
-    public void testJsonReader() throws IOException {
-        JsonParser parser = new JsonParser();
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
-        Reader reader = new InputStreamReader(inputStream);
-        JsonElement rootElement = parser.parse(reader);
-        boolean result = rootElement.isJsonObject();
-        Assertions.assertTrue(result);
-    }
-/*
-    @Test
-    public void testJsonFormatterNamesAndDates(){
-        JsonFormatter jsonFormatter = new JsonFormatter();
-        String output = jsonFormatter.formatNamesAndDates;
-        boolean result = (output.equals(expectedResult));
-        Assertions.assertTrue(result);
-    }
 
     @Test
-    public void testJsonFormatterNamesAndRevisionsCount(){
-        JsonFormatter jsonFormatter = new JsonFormatter();
-        String output = jsonFormatter.formatNamesAndRevisions;
-        boolean result = (output.equals(expectedResult));
+    public void testJsonFormatterNamesAndDates() throws ParseException {
+        RevisionParser revis = new RevisionParser();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
+        ArrayList<Author> listOfAuthors = revis.revisionParserArray(inputStream);
+        String output = listOfAuthors.get(0).getUsername();
+        String outputTwo = listOfAuthors.get(0).getTimestamp();
+        boolean result = (output.equals("Chenopodiaceous"));
+        boolean resultTwo = (outputTwo.equals("Mon Sep 28 23:30:08 EDT 2020"));
+        Assertions.assertTrue(result && resultTwo);
+    }
+
+
+    @Test
+    public void testJsonFormatterRevisionsCount(){
+        RevisionParser revis = new RevisionParser();
+        AuthorSorter sort = new AuthorSorter();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
+        ArrayList<Author> listOfAuthors = revis.revisionParserArray(inputStream);
+        Map nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(listOfAuthors)));
+        String output = nameCounter.get("Chenopodiaceous").toString();
+        boolean result = (output.equals("2"));
         Assertions.assertTrue(result);
-    }*/
+    }
 }

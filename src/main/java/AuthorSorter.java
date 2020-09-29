@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class InsertionSort {
+public class AuthorSorter {
     public Map sorter(ArrayList<Author> authorsList) {
         Map<String, Integer> nameCounter = new HashMap<>();
 
@@ -35,9 +35,7 @@ public class InsertionSort {
         return nameCounter;
     }
 
-    public void outNameCounter(Map nameCounter){
-        for(Object username : nameCounter.keySet()){
-            System.out.printf("%-30s %10s %n", username.toString(), nameCounter.get(username));
-        }
+    public Map outNameCounter(Map nameCounter){
+        return nameCounter;
     }
 }
