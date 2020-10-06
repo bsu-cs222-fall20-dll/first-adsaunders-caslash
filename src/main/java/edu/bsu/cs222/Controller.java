@@ -53,8 +53,8 @@ public class Controller {
     }
 
     public void getMostRecentList() throws Exception {
-        revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title.getText())));
         labelPlacements();
+        revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title.getText())));
         for(Author author : revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title.getText())))) {
             Label usernameLabel = new Label(author.getUsername());
             usernameVBox.getChildren().add(usernameLabel);
