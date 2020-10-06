@@ -43,7 +43,7 @@ public class RevisionParser {
         return metaWikiData;
     }
 
-    public void outputRedirect(InputStream inputStream){
+    public String outputRedirect(InputStream inputStream){
         Reader reader = new InputStreamReader(inputStream);
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(reader);
@@ -51,21 +51,22 @@ public class RevisionParser {
         JsonObject query = rootObject.getAsJsonObject("query");
 
         try{
-            getRedirectMessage(query);
+            return getRedirectMessage(query);
         }catch (NullPointerException e){
-            System.out.println("You have not been redirected");
+            return("You have not been redirected");
         }
     }
 
-    public void getRedirectMessage(JsonObject query){
+    public String getRedirectMessage(JsonObject query){
         JsonArray fromToData;
         fromToData = query.getAsJsonArray("redirects");
         for(JsonElement fromTo : fromToData){
             String from = fromTo.getAsJsonObject().get("from").getAsString();
             String to = fromTo.getAsJsonObject().get("to").getAsString();
             if(from.length()>0 && to.length()>0){
-                System.out.println("You have been redirected from " + from + " to " + to);
+                return("You have been redirected from " + from + " to " + to);
             }
         }
+        return null;
     }
 }
