@@ -1,6 +1,6 @@
-import edu.bsu.cs.Author;
-import edu.bsu.cs.RevisionParser;
-import edu.bsu.cs.WikipediaConnector;
+import edu.bsu.cs222.Author;
+import edu.bsu.cs222.RevisionParser;
+import edu.bsu.cs222.WikipediaConnector;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 

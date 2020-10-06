@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="193.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/14.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bsu.cs.FXController">
+<VBox alignment="CENTER" prefHeight="193.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/14.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bsu.cs222.FXController">
    <children>
       <Label text="ONS Wikipedia Edits Parser" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">

@@ -1,4 +1,4 @@
-package edu.bsu.cs;
+package edu.bsu.cs222;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

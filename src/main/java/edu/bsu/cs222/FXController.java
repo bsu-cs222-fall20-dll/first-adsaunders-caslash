@@ -1,4 +1,4 @@
-package edu.bsu.cs;
+package edu.bsu.cs222;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
