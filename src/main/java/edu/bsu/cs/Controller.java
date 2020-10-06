@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Controller {
+    @SuppressWarnings("SuspiciousMethodCalls")//Suppresses warning about username having a suspicious method call
     public void userInput() throws Exception {
         UI ui = new UI();
         AuthorSorter sort = new AuthorSorter();
@@ -17,21 +18,23 @@ public class Controller {
 
         RevisionParser revis = new RevisionParser();
 
-        if(choice.equals("R")){
-            revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
-            ui.nameDateHeader();
-            for(Author author : revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title)))){
-                System.out.printf("%-30s %30s %n", author.getUsername(), author.getTimestamp());
+        switch (choice) {
+            case "R" -> {
+                revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
+                ui.nameDateHeader();
+                for (Author author : revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title)))) {
+                    System.out.printf("%-30s %30s %n", author.getUsername(), author.getTimestamp());
+                }
             }
-        }else if(choice.equals("H")){
-            revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
-            ui.nameCountHeader();
-            Map nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title))))));
-            for(Object username : nameCounter.keySet()){
-                System.out.printf("%-30s %10s %n", username.toString(), nameCounter.get(username));
+            case "H" -> {
+                revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title)));
+                ui.nameCountHeader();
+                Map<String, Integer> nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title))))));
+                for (Object username : nameCounter.keySet()) {
+                    System.out.printf("%-30s %10s %n", username.toString(), nameCounter.get(username));
+                }
             }
-        }else if(choice.equals("E")){
-            System.out.println("Goodbye!");
+            case "E" -> System.out.println("Goodbye!");
         }
     }
 }

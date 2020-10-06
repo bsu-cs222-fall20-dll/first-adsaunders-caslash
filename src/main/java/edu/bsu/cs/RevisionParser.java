@@ -12,21 +12,7 @@ import java.util.Map;
 public class RevisionParser {
     public ArrayList<Author> revisionParserArray(InputStream inputStream){
         ArrayList<Author> listOfAuthors = new ArrayList<>();
-        Reader reader = new InputStreamReader(inputStream);
-        JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(reader);
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray metaWikiData = null;
-
-        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            if (entryObject.getAsJsonObject().has("missing")) {
-                System.out.println("This page does not exist please try again");
-            } else {
-                metaWikiData = entryObject.getAsJsonArray("revisions");
-            }
-        }
+        JsonArray metaWikiData = constructArrayOfRevisions(inputStream);
 
         if(metaWikiData != null){
             for(JsonElement author : metaWikiData){
@@ -39,26 +25,47 @@ public class RevisionParser {
         return listOfAuthors;
     }
 
+    public JsonArray constructArrayOfRevisions(InputStream inputStream){
+        Reader reader = new InputStreamReader(inputStream);
+        JsonParser parser = new JsonParser();
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
+        JsonArray metaWikiData = null;
+        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
+            JsonObject entryObject = entry.getValue().getAsJsonObject();
+            if (entryObject.getAsJsonObject().has("missing")) {
+                return null;
+            } else {
+                metaWikiData = entryObject.getAsJsonArray("revisions");
+            }
+        }
+        return metaWikiData;
+    }
+
     public void outputRedirect(InputStream inputStream){
         Reader reader = new InputStreamReader(inputStream);
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject query = rootObject.getAsJsonObject("query");
-        JsonArray fromToData = null;
 
         try{
-            fromToData = query.getAsJsonArray("redirects");
-
-            for(JsonElement fromTo : fromToData){
-                String from = fromTo.getAsJsonObject().get("from").getAsString();
-                String to = fromTo.getAsJsonObject().get("to").getAsString();
-                if(from.length()>0 && to.length()>0){
-                    System.out.println("You have been redirected from " + from + " to " + to);
-                }
-            }
+            getRedirectMessage(query);
         }catch (NullPointerException e){
             System.out.println("You have not been redirected");
+        }
+    }
+
+    public void getRedirectMessage(JsonObject query){
+        JsonArray fromToData;
+        fromToData = query.getAsJsonArray("redirects");
+        for(JsonElement fromTo : fromToData){
+            String from = fromTo.getAsJsonObject().get("from").getAsString();
+            String to = fromTo.getAsJsonObject().get("to").getAsString();
+            if(from.length()>0 && to.length()>0){
+                System.out.println("You have been redirected from " + from + " to " + to);
+            }
         }
     }
 }
