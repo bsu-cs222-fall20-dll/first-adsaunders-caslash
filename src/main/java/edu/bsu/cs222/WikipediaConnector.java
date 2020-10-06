@@ -10,7 +10,6 @@ public class WikipediaConnector {
             connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (caslash@bsu.edu)");
             return connection.getInputStream();
         }catch (Exception e){
-            System.out.println("Could not connect to Wikipedia, please try again.");
             return null;
         }
     }
