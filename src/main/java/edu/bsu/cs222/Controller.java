@@ -70,7 +70,7 @@ public class Controller {
         if(connector.connectToWikipedia(connector.convertToUrl(title.getText())) == null){
             Label noConnection = new Label("Could not connect to Wikipedia, please try again.");
             redirectionMessVBox.getChildren().add(noConnection);
-        }else{
+        } else {
             if (revis.constructArrayOfRevisions(connector.connectToWikipedia(connector.convertToUrl(title.getText()))) == null) {
                 Label doesntExist = new Label("This page does not exist please try again");
                 redirectionMessVBox.getChildren().add(doesntExist);
