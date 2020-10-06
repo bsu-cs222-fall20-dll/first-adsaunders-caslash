@@ -39,6 +39,8 @@ public class Controller {
 
 
     public void getMostEditsList() throws Exception {
+        recencyButton.setDisable(true);
+        numOfEditsButton.setDisable(true);
         Map<String, Integer> nameCounter;
         labelPlacements();
         nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title.getText()))))));
@@ -48,11 +50,11 @@ public class Controller {
             Label editsMade = new Label(nameCounter.get(username).toString());
             infoVBox.getChildren().add(editsMade);
         }
-        recencyButton.setDisable(true);
-        numOfEditsButton.setDisable(true);
     }
 
     public void getMostRecentList() throws Exception {
+        recencyButton.setDisable(true);
+        numOfEditsButton.setDisable(true);
         labelPlacements();
         revis.outputRedirect(connector.connectToWikipedia(connector.convertToUrl(title.getText())));
         for(Author author : revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title.getText())))) {
@@ -61,9 +63,6 @@ public class Controller {
             Label editsMade = new Label(author.getTimestamp());
             infoVBox.getChildren().add(editsMade);
         }
-        recencyButton.setDisable(true);
-        numOfEditsButton.setDisable(true);
-
     }
 
     public void labelPlacements() throws Exception {
@@ -82,10 +81,10 @@ public class Controller {
     }
 
     public void refreshLists(ActionEvent actionEvent) {
+        recencyButton.setDisable(false);
+        numOfEditsButton.setDisable(false);
         usernameVBox.getChildren().clear();
         infoVBox.getChildren().clear();
         redirectionMessVBox.getChildren().clear();
-        recencyButton.setDisable(false);
-        numOfEditsButton.setDisable(false);
     }
 }
