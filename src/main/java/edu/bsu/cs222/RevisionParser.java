@@ -26,34 +26,42 @@ public class RevisionParser {
     }
 
     public JsonArray constructArrayOfRevisions(InputStream inputStream){
-        Reader reader = new InputStreamReader(inputStream);
-        JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(reader);
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray metaWikiData = null;
-        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            if (entryObject.getAsJsonObject().has("missing")) {
-                return null;
-            } else {
-                metaWikiData = entryObject.getAsJsonArray("revisions");
+        try{
+            Reader reader = new InputStreamReader(inputStream);
+            JsonParser parser = new JsonParser();
+            JsonElement rootElement = parser.parse(reader);
+            JsonObject rootObject = rootElement.getAsJsonObject();
+            JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
+            JsonArray metaWikiData = null;
+            for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
+                JsonObject entryObject = entry.getValue().getAsJsonObject();
+                if (entryObject.getAsJsonObject().has("missing")) {
+                    return null;
+                } else {
+                    metaWikiData = entryObject.getAsJsonArray("revisions");
+                }
             }
+            return metaWikiData;
+        }catch (NullPointerException e){
+            return null;
         }
-        return metaWikiData;
     }
 
     public String outputRedirect(InputStream inputStream){
-        Reader reader = new InputStreamReader(inputStream);
-        JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(reader);
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject query = rootObject.getAsJsonObject("query");
-
         try{
-            return getRedirectMessage(query);
+            Reader reader = new InputStreamReader(inputStream);
+            JsonParser parser = new JsonParser();
+            JsonElement rootElement = parser.parse(reader);
+            JsonObject rootObject = rootElement.getAsJsonObject();
+            JsonObject query = rootObject.getAsJsonObject("query");
+
+            try{
+                return getRedirectMessage(query);
+            }catch (NullPointerException e){
+                return("You have not been redirected");
+            }
         }catch (NullPointerException e){
-            return("You have not been redirected");
+            return null;
         }
     }
 
