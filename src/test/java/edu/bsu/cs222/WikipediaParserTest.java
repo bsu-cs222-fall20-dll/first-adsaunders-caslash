@@ -1,6 +1,4 @@
-import edu.bsu.cs222.Author;
-import edu.bsu.cs222.AuthorSorter;
-import edu.bsu.cs222.RevisionParser;
+package edu.bsu.cs222;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
