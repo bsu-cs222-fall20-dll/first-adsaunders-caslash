@@ -10,11 +10,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Map;
 
+@SuppressWarnings("deprecation")
 public class JsonLearningTest {
     @Test
     public void testCountRevisions(){
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
+        assert inputStream != null;
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
@@ -24,6 +26,7 @@ public class JsonLearningTest {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
         }
+        assert array != null;
         Assert.assertEquals(4, array.size());
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.util.Map;
 
+@SuppressWarnings("all")//Suppresses warnings about actionEvent not being used even though it is necessary
 public class  FXController {
     public TextField title;
     public HBox doubleVBoxParent;
@@ -20,7 +21,6 @@ public class  FXController {
     WikipediaConnector connector = new WikipediaConnector();
     RevisionParser revis = new RevisionParser();
 
-    @SuppressWarnings("all")//Suppresses warnings about actionEvent not being used even though it is necessary
     public void mostRecent(javafx.event.ActionEvent actionEvent) throws Exception{
         Label usernameHead = new Label("Username");
         Label editHead = new Label("Edits Made");
@@ -29,7 +29,6 @@ public class  FXController {
         getMostRecentList();
     }
 
-    @SuppressWarnings("all")//Suppresses warnings about actionEvent not being used even though it is necessary
     public void mostEdits(javafx.event.ActionEvent actionEvent) throws Exception{
         Label usernameHead = new Label("Username");
         Label editHead = new Label("Edits Made");
@@ -38,9 +37,9 @@ public class  FXController {
         getMostEditsList();
     }
 
-    @SuppressWarnings("all")//Suppresses warnings about username variable
+
     public void getMostEditsList() throws Exception {
-        Map<String, Integer> nameCounter = null;
+        Map<String, Integer> nameCounter;
         labelPlacements();
         nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(revis.revisionParserArray(connector.connectToWikipedia(connector.convertToUrl(title.getText()))))));
         for(Object username : nameCounter.keySet()){
@@ -77,7 +76,6 @@ public class  FXController {
         }
     }
 
-    @SuppressWarnings("all")//Suppresses warnings about actionEvent not being used even though it is necessary
     public void refreshLists(ActionEvent actionEvent) {
         usernameVBox.getChildren().clear();
         infoVBox.getChildren().clear();

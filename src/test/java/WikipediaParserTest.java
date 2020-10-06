@@ -30,7 +30,7 @@ public class WikipediaParserTest {
         AuthorSorter sort = new AuthorSorter();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         ArrayList<Author> listOfAuthors = revis.revisionParserArray(inputStream);
-        Map nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(listOfAuthors)));
+        Map<String, Integer> nameCounter = sort.outNameCounter(sort.sortEditorsByNumberOfEdits(sort.sorter(listOfAuthors)));
         String output = nameCounter.get("Chenopodiaceous").toString();
         boolean result = (output.equals("2"));
         Assertions.assertTrue(result);
