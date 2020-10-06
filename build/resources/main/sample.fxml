@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="146.0" prefWidth="267.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bsu.cs.FXController">
+   <children>
+      <Label text="ONS Wikipedia Edits Parser" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Wikipedia Page Name" />
+            <TextField fx:id="title" />
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#mostEdits" text="Editors by Number of Edits" />
+      <Button mnemonicParsing="false" onAction="#mostRecent" text="Editors by Recency" />
+   </children>
+</VBox>

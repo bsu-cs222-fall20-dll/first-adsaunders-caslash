@@ -1,8 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
-group 'org.example'
+group 'edu.bsu.cs'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -14,3 +16,10 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'com.google.code.gson:gson:2.8.6'
 }
+
+javafx{
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = '14.0.2'
+}
+
+mainClassName = 'edu.bsu.cs.Main_FX'
