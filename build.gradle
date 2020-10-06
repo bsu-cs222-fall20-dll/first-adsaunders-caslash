@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
-group 'edu.bsu.cs'
+group 'edu.bsu.cs222'
 version '1.0-SNAPSHOT'
 
 repositories {
