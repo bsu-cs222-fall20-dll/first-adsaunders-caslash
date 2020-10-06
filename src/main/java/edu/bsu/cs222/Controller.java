@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import java.util.Map;
 
 @SuppressWarnings("all")//Suppresses warnings about actionEvent not being used even though it is necessary
-public class  FXController {
+public class Controller {
     public TextField title;
     public HBox doubleVBoxParent;
     public VBox usernameVBox;
